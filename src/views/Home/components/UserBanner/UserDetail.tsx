@@ -43,7 +43,7 @@ const UserDetail = () => {
 
   const getDesktopHeading = () => {
     if (profile) {
-      return <Heading size="xl">{t('Hi, %userName%!', { userName: profile.username })}</Heading>
+      return <Heading size="xl">{t('Hi', { userName: profile.username })}</Heading>
     }
     if (isLoading && !profile) {
       return <Skeleton width={200} height={40} my="4px" />
@@ -55,7 +55,7 @@ const UserDetail = () => {
     if (profile) {
       return (
         <Heading mb="18px" >
-          {t('Hi, %userName%!', { userName: profile.username })}
+          {t('Hi', { userName: profile.username })}
         </Heading>
       )
     }

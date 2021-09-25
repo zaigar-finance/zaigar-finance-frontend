@@ -4587,10 +4587,10 @@
   resolved "https://registry.npmjs.org/@xtuc/long/-/long-4.2.2.tgz"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zaigar-finance/uikit@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@zaigar-finance/uikit/-/uikit-0.1.10.tgz#c93a0017c31b21a4d521fbffe7f4e2493576d08e"
-  integrity sha512-9wzuN2zM9W9M5R0bCrDOCep2fqEPA2ywuQJHyT0qdC7ZKgcYBnxQI/M4SJOdf9rUVKkT7Bc9DSFdY9tdrLQ2Xw==
+"@zaigar-finance/uikit@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@zaigar-finance/uikit/-/uikit-0.1.11.tgz#ac4dcabb4c76ad6cf114819e9d7a2e13e57040a2"
+  integrity sha512-IjufbhbfjhpBWbLuKibGFnOUeTsyIclhZdlEIkGwuGHKTsVO/UlQrNd62itXXnYNrqFpfozjpHSqlPAjHU293A==
   dependencies:
     "@types/lodash" "^4.14.162"
     "@types/styled-system" "^5.1.10"

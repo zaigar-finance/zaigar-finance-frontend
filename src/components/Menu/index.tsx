@@ -32,7 +32,7 @@ const Menu = (props) => {
       priceLinkZfai="https://bscscan.com/token/0x205cD59eEA8e8c5083f16D20e1050fD4a7d72037"
       profile={{
         username: profile?.username,
-        image: profile?.nft ? `/images/nfts/${profile.nft?.images.sm}` : undefined,
+        image: profile?.nft ? undefined : undefined,
         profileLink: '/profile',
         noProfileLink: '/profile',
         showPip: !profile?.username,
