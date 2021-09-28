@@ -150,7 +150,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   })
   const lpAddress = getAddress(farm.lpAddresses)
   const tokenA = getAddress(farm.tokenAddress)
-  const bsc = getBscScanLink(lpAddress, 'address')
+  const bsc = farm.isTokenOnly? getBscScanLink(tokenA, 'address') : getBscScanLink(lpAddress, 'address')
   const info = farm.isTokenOnly ?  `https://pancakeswap.info/token/${tokenA}` : `https://pancakeswap.info/pool/${lpAddress}`
   const depositFeeFetch = farm.depositFee
 

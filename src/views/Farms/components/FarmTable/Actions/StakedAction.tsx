@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useMemo, useState, useCallback } from 'react'
 import styled from 'styled-components'
 import { Button, useModal, IconButton, AddIcon, MinusIcon, Skeleton, Text, Heading } from '@zaigar-finance/uikit'
 import { useLocation } from 'react-router-dom'
@@ -43,6 +43,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   lpAddresses,
   quoteToken,
   token,
+  tokenAddress,
   isTokenOnly,
   userDataReady,
   displayApr,
@@ -62,6 +63,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   const isApproved = account && allowance && allowance.isGreaterThan(0)
 
   const lpAddress = getAddress(lpAddresses)
+  const tokenAdr = getAddress(tokenAddress);
   const liquidityUrlPathParts = getLiquidityUrlPathParts({
     quoteTokenAddress: quoteToken.address,
     tokenAddress: token.address,
@@ -109,9 +111,18 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   const [onPresentWithdraw] = useModal(
     <WithdrawModal max={stakedBalance} onConfirm={handleUnstake} tokenName={lpSymbol} />,
   )
-  const lpContract = useERC20(lpAddress)
+
+  const lpContract = useMemo(() => {
+    if(isTokenOnly){
+      return tokenAdr;
+    }
+    return lpAddress;
+  }, [lpAddress, tokenAdr, isTokenOnly])
+
+ const lptContract = useERC20(lpContract)
+
   const dispatch = useAppDispatch()
-  const { onApprove } = useApproveFarm(lpContract)
+  const { onApprove } = useApproveFarm(lptContract)
 
   const handleApprove = useCallback(async () => {
     try {
