@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Flex, HelpIcon, IconButton } from '@zaigar-finance/uikit'
 import FlexRow from './FlexRow'
-import { PricePairLabel, TimerLabel } from './Label'
+import { PricePairLabel, TimerLabel, JackpotLabel } from './Label'
 import PrevNextNav from './PrevNextNav'
 import HistoryButton from './HistoryButton'
 
@@ -44,9 +44,10 @@ const HistoryButtonWrapper = styled.div`
 
 const Menu = () => {
   return (
-    <FlexRow alignItems="center" p="16px">
+    <FlexRow alignItems="center" p="22px">
       <SetCol>
         <PricePairLabel />
+        <JackpotLabel />
       </SetCol>
       <FlexRow justifyContent="center">
         <PrevNextNav />
@@ -54,13 +55,13 @@ const Menu = () => {
       <SetCol>
         <Flex alignItems="center" justifyContent="flex-end">
           <TimerLabelWrapper>
-            <TimerLabel interval="10" unit="m" />
+            <TimerLabel interval="5" unit="m" />
           </TimerLabelWrapper>
           <HelpButtonWrapper>
             <IconButton
               variant="subtle"
               as="a"
-              href="https://docs.pancakeswap.finance/products/prediction"
+              href="https://docs.zaigar.finance/products/zaioptions"
               target="_blank"
               rel="noreferrer noopener"
             >

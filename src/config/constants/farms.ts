@@ -86,6 +86,21 @@ const farms: FarmConfig[] = [
     quoteToken: tokens.wbnb,
   }, 
   {
+    pid: 13,
+    lpSymbol: 'ZFAI-ZAIF LP',
+    depositFee: 0,
+    lpAddresses: {
+      97: '0x620d017bd536cd35d1cf57425e697042d008ba52',
+      56: '0xfa94963a6d6d0a4eaf7a598f098f0f49b76625f0',
+    },
+    tokenAddress: {
+      97: '0xd58bc8587535241FC1F66B28C06bbC4C263B0f2D',
+      56: '0x205cD59eEA8e8c5083f16D20e1050fD4a7d72037',
+    }, 
+    token: tokens.zfai,
+    quoteToken: tokens.zaif,
+  }, 
+  {
     pid: 10,
     lpSymbol: 'ZEFI',
     depositFee: 200,

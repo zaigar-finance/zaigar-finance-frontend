@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useCountUp } from 'react-countup'
+import { BigNumber } from 'ethers'
 import {
   Card,
   CardBody,
@@ -15,6 +16,9 @@ import { NodeRound, NodeLedger, BetPosition } from 'state/types'
 import { formatBigNumberToFixed } from 'utils/formatBalance'
 import { useGetLastOraclePrice, useGetBufferSeconds } from 'state/predictions/hooks'
 import RoundProgress from 'components/RoundProgress'
+import { usePredictionsContract,useERC20 } from 'hooks/useContract'
+import { PredictionsContract } from 'utils/types'
+import { ethersToBigNumber } from 'utils/bigNumber'
 import { formatUsdv2, getHasRoundFailed, getPriceDifference } from '../../helpers'
 import PositionTag from '../PositionTag'
 import { RoundResultBox, LockPriceRow, PrizePoolRow } from '../RoundResult'
@@ -51,15 +55,32 @@ const LiveRoundCard: React.FC<LiveRoundCardProps> = ({
   const priceAsNumber = parseFloat(formatBigNumberToFixed(price, 3, 8))
   const hasRoundFailed = getHasRoundFailed(round, bufferSeconds)
 
+  const predictionContract = usePredictionsContract()
+  const [jackpotAmount, getJackpot] = useState(0);
+
   const { countUp, update } = useCountUp({
     start: 0,
     end: priceAsNumber,
     duration: 1,
-    decimals: 3,
+    decimals: 4,
   })
   const { targetRef, tooltip, tooltipVisible } = useTooltip(t('Last price from Chainlink Oracle'), {
     placement: 'bottom',
   })
+
+  const jackpotAccumulated = async () => { 
+    try {
+      const response = await predictionContract.getJackpotAmount()
+      const currentJackpot = ethersToBigNumber(response)
+      getJackpot(currentJackpot.toNumber())
+      return currentJackpot.gt(0)
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  }
+
+  jackpotAccumulated();
 
   const updateRef = useRef(update)
 
@@ -80,7 +101,7 @@ const LiveRoundCard: React.FC<LiveRoundCardProps> = ({
         epoch={round.epoch}
       />
       <RoundProgress variant="flat" scale="sm" lockTimestamp={lockTimestamp} closeTimestamp={closeTimestamp} />
-      <CardBody p="16px">
+      <CardBody p="1px">
         <MultiplierArrow
           betAmount={betAmount}
           multiplier={bullMultiplier}

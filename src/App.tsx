@@ -39,7 +39,7 @@ const NotFound = lazy(() => import('./views/NotFound'))
 // const Team = lazy(() => import('./views/Teams/Team'))
 // const Profile = lazy(() => import('./views/Profile'))
 // const TradingCompetition = lazy(() => import('./views/TradingCompetition'))
-// const Predictions = lazy(() => import('./views/Predictions'))
+const Predictions = lazy(() => import('./views/Predictions'))
 // const Voting = lazy(() => import('./views/Voting'))
 // const Proposal = lazy(() => import('./views/Voting/Proposal'))
 // const CreateProposal = lazy(() => import('./views/Voting/CreateProposal'))
@@ -110,9 +110,9 @@ const App: React.FC = () => {
            {/* <Route path="/competition">
               <TradingCompetition />
             </Route> */}
-           {/* <Route path="/options/:id">
+            {/* <Route path="/options/:id">
               <Predictions />
-             </Route> */}
+            </Route> */} 
             {/* <Route exact path="/voting">
               <Voting />
             </Route> */ }

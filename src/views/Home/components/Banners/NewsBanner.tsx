@@ -4,28 +4,29 @@ import { Text, Flex, Button, ArrowForwardIcon, Link, Heading } from '@zaigar-fin
 import { useTranslation } from 'contexts/Localization'
 
 const StyledSubheading = styled(Heading)`
-  background: -webkit-linear-gradient(#ffd800, #eb8c00);
+  background: -webkit-linear-gradient(#ffffff, #ffffff);
   font-size: 24px;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 `
 
 const StyledHeading = styled(Heading)`
   color: #ffffff;
-  background: -webkit-linear-gradient(#7645d9 0%, #452a7a 100%);
+  background: -webkit-linear-gradient(#0ABAB5 0%, #0000 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-stroke: 6px transparent;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 `
 
 const Wrapper = styled.div`
-  border-radius: 32px;
+  border-radius: 10px;
   width: 100%;
-  background-image: linear-gradient(#7645d9, #452a7a);
+  background-image: linear-gradient(#0ABAB5, #0000);
   max-height: max-content;
   overflow: hidden;
 `
@@ -68,35 +69,41 @@ const RightWrapper = styled.div`
     opacity: 1;
 
     & img {
-      height: 100%;
+      height: 90%;
     }
   }
 `
 
-const FarmAuctionsBanner = () => {
+const NewsBanner = () => {
   const { t } = useTranslation()
 
   return (
     <Wrapper>
       <Inner>
         <LeftWrapper>
-          <StyledSubheading>{t('Calling all BSC projects')}</StyledSubheading>
-          <StyledHeading scale="xl">{t('Apply for whitelisting now!')}</StyledHeading>
-          <Link href="/farms/auction">
-            <Button>
-              <Text color="invertedContrast" bold fontSize="16px" mr="4px">
-                {t('Farm Auctions')}
-              </Text>
-              <ArrowForwardIcon color="invertedContrast" />
-            </Button>
+          <StyledSubheading>{t('New Launch!')}</StyledSubheading>
+          <StyledHeading scale="xl">{t('Try to predict the market on our new binary options game.')}</StyledHeading>
+          <Flex margin-bottom="10px">
+          <Link href="/options/0x0">
+          <ArrowForwardIcon color="Contrast" />
+              <Text color="contrast" bold fontSize="22px" mr="8px">
+                {t('Play')}
+              </Text>            
           </Link>
+          <Link href="https://docs.zaigar.finance/products/zaioptions">
+              <ArrowForwardIcon color="Contrast" />
+              <Text color="contrast" bold fontSize="22px" mr="4px">
+                {t('Learn')}
+              </Text>         
+          </Link>
+          </Flex>
         </LeftWrapper>
         <RightWrapper>
-          <img src="/images/decorations/auction-bunny.png" alt={t('auction bunny')} />
+          <img src="/images/decorations/zaioption.png" alt={t('zai option')} />
         </RightWrapper>
       </Inner>
     </Wrapper>
   )
 }
 
-export default FarmAuctionsBanner
+export default NewsBanner

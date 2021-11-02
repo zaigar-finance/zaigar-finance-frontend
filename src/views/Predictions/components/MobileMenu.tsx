@@ -31,7 +31,7 @@ const StyledMobileMenu = styled.div`
   background-color: ${({ theme }) => theme.card.background};
   display: flex;
   flex: none;
-  height: 64px;
+  height: 34px;
 
   ${({ theme }) => theme.mediaQueries.lg} {
     display: none;

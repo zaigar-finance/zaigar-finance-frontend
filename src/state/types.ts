@@ -295,6 +295,10 @@ export interface ReduxNodeRound {
   closeOracleId: string
 }
 
+export interface ReferralNode {
+  referralCommission: ethers.BigNumber
+}
+
 export interface NodeRound {
   epoch: number
   startTimestamp: number | null

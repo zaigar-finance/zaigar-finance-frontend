@@ -45,11 +45,11 @@ const TeamCard = () => {
         <Row>
         <Block>
         <CardImage src="/images/teamzaigar/team-rui.png" alt="Rui" width={256} height={256} />
-        <Label>{t('Rui Braga(Founder and CEO)')}</Label>
+        <Label>{t('Rui Braga(Founder/CEO)')}</Label>
         </Block>
         <Block>
         <CardImage src="/images/teamzaigar/team-luan.png" alt="Luan" width={256} height={256} />
-        <Label>{t('Luan Ítalo(Co-founder and CMO)')}</Label>
+        <Label>{t('Luan Ítalo(Co-founder/CMO)')}</Label>
         </Block>
         <Block>
         <CardImage src="/images/teamzaigar/team-ismael.png" alt="Ismael" width={256} height={256} />
@@ -65,15 +65,15 @@ const TeamCard = () => {
         </Block>
         <Block>
         <CardImage src="/images/teamzaigar/team-heslei.png" alt="Heslei" width={256} height={256} />
-        <Label>{t('Heslei Oliveira(Commercial Director)')}</Label>
+        <Label>{t('Heslei Oliveira(Com. Director)')}</Label>
         </Block>
         <Block>
         <CardImage src="/images/teamzaigar/team-marcelo.png" alt="Marcelo" width={256} height={256} />
         <Label>{t('Marcelo Borges(Financial Director)')}</Label>
         </Block>
         <Block>
-        <CardImage src="/images/teamzaigar/team-samuel.png" alt="Samuel" width={256} height={256} />
-        <Label>{t('Samuel Bradoke(Youtuber)')}</Label>
+        <CardImage src="/images/teamzaigar/team-wallace.jpg" alt="Wallace" width={256} height={256} />
+        <Label>{t('Wallace Pinheiro(Dev)')}</Label>
         </Block>
         </Row>
       </CardBody>

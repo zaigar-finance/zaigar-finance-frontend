@@ -19,7 +19,7 @@ import {
 import { useWeb3React } from '@web3-react/core'
 import { getBscScanLink } from 'utils'
 import { useAppDispatch } from 'state'
-import { usePriceBnbBusd } from 'state/farms/hooks'
+import { usePriceBnbBusd , usePriceZaifBusd } from 'state/farms/hooks'
 import { fetchClaimableStatuses } from 'state/predictions'
 import { useTranslation } from 'contexts/Localization'
 import useToast from 'hooks/useToast'
@@ -57,11 +57,13 @@ const CollectRoundWinningsModal: React.FC<CollectRoundWinningsModalProps> = ({
   const { toastSuccess, toastError } = useToast()
   const predictionsContract = usePredictionsContract()
   const bnbBusdPrice = usePriceBnbBusd()
+  const zaifBusdPrice = usePriceZaifBusd()
   const dispatch = useAppDispatch()
-
+ 
   // Convert payout to number for compatibility
   const payoutAsFloat = parseFloat(payout)
   const betAmountAsFloat = parseFloat(betAmount)
+
 
   const handleClick = async () => {
     try {
@@ -114,19 +116,20 @@ const CollectRoundWinningsModal: React.FC<CollectRoundWinningsModalProps> = ({
         <Flex alignItems="start" justifyContent="space-between" mb="8px">
           <Text>{t('Your position')}</Text>
           <Box style={{ textAlign: 'right' }}>
-            <Text>{`${betAmount} BNB`}</Text>
+            <Text>{`${betAmount} ZAIF`}</Text>
             <Text fontSize="12px" color="textSubtle">
-              {`~$${bnbBusdPrice.times(betAmountAsFloat).toFormat(2)}`}
+              {`~$${zaifBusdPrice.times(betAmountAsFloat).toFormat(2)}`}
             </Text>
           </Box>
         </Flex>
         <Flex alignItems="start" justifyContent="space-between" mb="24px">
           <Text>{t('Your winnings')}</Text>
           <Box style={{ textAlign: 'right' }}>
-            <Text>{`${payout} BNB`}</Text>
+            <Text>{`${payout} ZAIF`}</Text>
             <Text fontSize="12px" color="textSubtle">
-              {`~$${bnbBusdPrice.times(payoutAsFloat).toFormat(2)}`}
+              {`~$${zaifBusdPrice.times(payoutAsFloat).toFormat(2)}`}
             </Text>
+            <Text fontSize="10px" color="textSubtle"> Payouts showing here are not accounting 2% fees from (Pot/Referral) and Zaif transfer Fees (5%)</Text>
           </Box>
         </Flex>
         <Button

@@ -58,7 +58,7 @@ const OpenRoundCard: React.FC<OpenRoundCardProps> = ({
   const isBufferPhase = Date.now() > (round.lockTimestamp + ROUND_BUFFER) * 1000
   const positionDisplay = position === BetPosition.BULL ? t('Up').toUpperCase() : t('Down').toUpperCase()
   const { targetRef, tooltipVisible, tooltip } = useTooltip(
-    <div style={{ whiteSpace: 'nowrap' }}>{`${formatBnbv2(betAmount)} BNB`}</div>,
+    <div style={{ whiteSpace: 'nowrap' }}>{`${formatBnbv2(betAmount)} ZAIF`}</div>,
     { placement: 'top' },
   )
 
@@ -123,7 +123,7 @@ const OpenRoundCard: React.FC<OpenRoundCardProps> = ({
           icon={<PlayCircleOutlineIcon color="white" mr="4px" width="21px" />}
           title={t('Next')}
         />
-        <CardBody p="16px">
+        <CardBody p="1px">
           <MultiplierArrow betAmount={betAmount} multiplier={bullMultiplier} hasEntered={hasEnteredUp} />
           <RoundResultBox isNext={canEnterPosition} isLive={!canEnterPosition}>
             {canEnterPosition ? (

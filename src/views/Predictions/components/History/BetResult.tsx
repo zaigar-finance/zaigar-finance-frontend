@@ -4,7 +4,7 @@ import { Box, Flex, Heading, Text, PrizeIcon, BlockIcon, LinkExternal, useToolti
 import styled from 'styled-components'
 import { useAppDispatch } from 'state'
 import { useTranslation } from 'contexts/Localization'
-import { usePriceBnbBusd } from 'state/farms/hooks'
+import { usePriceBnbBusd ,usePriceZaifBusd } from 'state/farms/hooks'
 import { REWARD_RATE } from 'state/predictions/config'
 import { Bet, BetPosition } from 'state/types'
 import { fetchLedgerData, markBetHistoryAsCollected } from 'state/predictions'
@@ -38,9 +38,10 @@ const BetResult: React.FC<BetResultProps> = ({ bet, result }) => {
   const { account } = useWeb3React()
   const { isRefundable } = useIsRefundable(bet.round.epoch)
   const bnbBusdPrice = usePriceBnbBusd()
+  const zaifBusdPrice = usePriceZaifBusd()
   const canClaim = !bet.claimed && bet.position === bet.round.position
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
-    <Text as="p">{t('Includes your original position and your winnings, minus the %fee% fee.', { fee: '3%' })}</Text>,
+    <Text as="p">{t('Includes your original position and your winnings, minus the %fee% fee.', { fee: '15%' })}</Text>,
     { placement: 'auto' },
   )
 
@@ -149,14 +150,14 @@ const BetResult: React.FC<BetResultProps> = ({ bet, result }) => {
         </Flex>
         <Flex alignItems="center" justifyContent="space-between" mb="16px">
           <Text>{t('Your position')}</Text>
-          <Text>{`${formatBnb(bet.amount)} BNB`}</Text>
+          <Text>{`${formatBnb(bet.amount)} ZAIF`}</Text>
         </Flex>
         <Flex alignItems="start" justifyContent="space-between">
           <Text bold>{isWinner ? t('Your winnings') : t('Your Result')}:</Text>
           <Box style={{ textAlign: 'right' }}>
-            <Text bold color={getResultColor()}>{`${isWinner ? '+' : '-'}${formatBnb(payout)} BNB`}</Text>
+            <Text bold color={getResultColor()}>{`${isWinner ? '+' : '-'}${formatBnb(payout)} ZAIF`}</Text>
             <Text fontSize="12px" color="textSubtle">
-              {`~$${formatBnb(bnbBusdPrice.times(payout).toNumber())}`}
+              {`~$${formatBnb(zaifBusdPrice.times(payout).toNumber())}`}
             </Text>
           </Box>
         </Flex>
@@ -168,7 +169,7 @@ const BetResult: React.FC<BetResultProps> = ({ bet, result }) => {
                 {t('Amount to collect')}:
               </Text>
               <Flex justifyContent="end">
-                <Text fontSize="14px" color="textSubtle">{`${formatBnb(returned)} BNB`}</Text>
+                <Text fontSize="14px" color="textSubtle">{`${formatBnb(returned)} ZAIF`}</Text>
                 <span ref={targetRef}>
                   <InfoIcon color="textSubtle" ml="4px" />
                 </span>

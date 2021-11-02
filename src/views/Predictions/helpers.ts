@@ -4,7 +4,7 @@ import { formatBigNumber, formatBigNumberToFixed } from 'utils/formatBalance'
 import getTimePeriods from 'utils/getTimePeriods'
 
 export const formatUsdv2 = (usd: ethers.BigNumber) => {
-  return `$${formatBigNumberToFixed(usd, 3, 8)}`
+  return `$${formatBigNumberToFixed(usd, 4, 8)}`
 }
 
 export const formatBnbv2 = (bnb: ethers.BigNumber) => {

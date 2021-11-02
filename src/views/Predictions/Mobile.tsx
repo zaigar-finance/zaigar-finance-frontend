@@ -15,6 +15,7 @@ const StyledMobile = styled.div`
   flex-direction: column;
   height: 100%;
   max-height: 100%;
+  padding-top:1px;
 
   ${({ theme }) => theme.mediaQueries.xl} {
     display: none;
@@ -23,9 +24,9 @@ const StyledMobile = styled.div`
 
 const View = styled.div<{ isVisible: boolean }>`
   height: 100%;
+  margin-top:-10px;
   left: 0;
   position: absolute;
-  top: 0;
   width: 100%;
   visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
 `
@@ -52,7 +53,7 @@ const Mobile: React.FC = () => {
     <StyledMobile>
       <Box height="100%" overflow="hidden" position="relative">
         <View isVisible={view === PageView.POSITIONS}>
-          <Flex alignItems="center" height="100%">
+          <Flex alignItems="center" height="105%">
             {status === PredictionStatus.ERROR && <ErrorNotification />}
             {status === PredictionStatus.PAUSED && <PauseNotification />}
             {status === PredictionStatus.LIVE && <Positions view={view} />}

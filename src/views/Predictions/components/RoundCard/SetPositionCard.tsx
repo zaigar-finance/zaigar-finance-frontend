@@ -1,14 +1,15 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState, useCallback } from 'react'
 import {
   ArrowBackIcon,
   Card,
   CardBody,
   CardHeader,
+  CardRibbon,
   Flex,
   Heading,
   IconButton,
   Button,
-  BinanceIcon,
+  LogoIcon,
   Text,
   BalanceInput,
   Slider,
@@ -18,19 +19,28 @@ import {
 import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies'
 import Cookies from 'js-cookie'
 import { ethers } from 'ethers'
+import { Token, TokenAmount } from '@pancakeswap/sdk'
+import { useSingleCallResult } from 'state/multicall/hooks'
 import { parseUnits } from 'ethers/lib/utils'
 import { useWeb3React } from '@web3-react/core'
 import { useGetMinBetAmount } from 'state/predictions/hooks'
 import { useTranslation } from 'contexts/Localization'
-import { usePredictionsContract } from 'hooks/useContract'
-import { useGetBnbBalance } from 'hooks/useTokenBalance'
+import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
+import { usePredictionsContract,useERC20 } from 'hooks/useContract'
+import useTokenBalance, { useGetBnbBalance } from 'hooks/useTokenBalance'
+import { getZaifAddress } from 'utils/addressHelpers'
+import { BIG_ZERO, ethersToBigNumber } from 'utils/bigNumber'
+import { usePriceZaifBusd } from 'state/farms/hooks'
+import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction'
 import useToast from 'hooks/useToast'
 import { BetPosition } from 'state/types'
 import { formatBigNumber, formatFixedNumber } from 'utils/formatBalance'
 import ConnectWalletButton from 'components/ConnectWalletButton'
+import ApproveConfirmButtons, { ButtonArrangement } from 'views/Profile/components/ApproveConfirmButtons'
 import PositionTag from '../PositionTag'
 import useSwiper from '../../hooks/useSwiper'
 import FlexRow from '../FlexRow'
+import useApprovePrediction from '../../hooks/useApproveContract'
 
 interface SetPositionCardProps {
   position: BetPosition
@@ -43,27 +53,31 @@ interface SetPositionCardProps {
 // /!\ TEMPORARY /!\
 // Set default gasPrice (6 gwei) when calling BetBull/BetBear before new contract is released fixing this 'issue'.
 // TODO: Remove on beta-v2 smart contract release.
-const gasPrice = parseUnits('6', 'gwei')
+const gasPrice = parseUnits('10', 'gwei')
 const dust = parseUnits('0.01', 18)
 const percentShortcuts = [10, 25, 50, 75]
 
-const getButtonProps = (
+const GetButtonProps = (
   value: ethers.BigNumber,
-  bnbBalance: ethers.BigNumber,
+  zaifBalance: ethers.BigNumber,
   minBetAmountBalance: ethers.BigNumber,
 ) => {
+
+  const { balance: userBalance } = useTokenBalance(getZaifAddress())
+  
   const hasSufficientBalance = () => {
-    if (value.gt(0)) {
-      return value.lte(bnbBalance)
+
+     if (userBalance.gt(0)) {
+      return value.lte(zaifBalance)
     }
-    return bnbBalance.gt(0)
+    return userBalance.gt(0)
   }
 
   if (!hasSufficientBalance()) {
-    return { key: 'Insufficient BNB balance', disabled: true }
+    return { key: 'Insufficient ZAIF balance', disabled: true }
   }
 
-  if (value.eq(0)) {
+  if (userBalance.eq(0)) {
     return { key: 'Enter an amount', disabled: true }
   }
 
@@ -77,26 +91,105 @@ const getValueAsEthersBn = (value: string) => {
 
 const SetPositionCard: React.FC<SetPositionCardProps> = ({ position, togglePosition, epoch, onBack, onSuccess }) => {
   const [value, setValue] = useState('')
+  const [requestedApproval, setRequestedApproval] = useState(false)
   const [isTxPending, setIsTxPending] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null)
   const [percent, setPercent] = useState(0)
-
+  const [allowanceResult, setAllowance] = useState(0);
+  const { balance: userBalance } = useTokenBalance(getZaifAddress())
   const { account } = useWeb3React()
   const { swiper } = useSwiper()
-  const { balance: bnbBalance } = useGetBnbBalance()
+  const { toastSuccess } = useToast()
+  const zaifPriceBusd = usePriceZaifBusd()
+ // const { balance: bnbBalance } = useGetBnbBalance()
   const minBetAmount = useGetMinBetAmount()
+  const zaifContract = getZaifAddress();
+  const zaifAddress = useERC20(zaifContract)
   const { t } = useTranslation()
   const { toastError } = useToast()
   const predictionsContract = usePredictionsContract()
 
-  // Convert bnb balance to ethers.BigNumber
-  const bnbBalanceAsBn = useMemo(() => {
-    return ethers.BigNumber.from(bnbBalance.toString())
-  }, [bnbBalance])
+  // Approval
+  const approvedState = async () => { 
+    try {
+      const response = await zaifAddress.allowance(account, "0x13fb969fD1108a9e7e8f7a02a3F982Ca3ef4D2ce")
+      const currentAllowance = ethersToBigNumber(response)
+      setAllowance(currentAllowance.toNumber())
+      return currentAllowance.gt(0)
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  }
+  approvedState();
+// const test = approvedState();
+  // const approvalState = await useSingleCallResult(zaifAddress, 'allowance', [account,"0xD13e8A06A461Fd5b6c3aFb49b22E380FA6d46f67"]).result
+  const isApproved = account && allowanceResult > 0
+//  console.log(isApproved)
+
+  const { onApprove } = useApprovePrediction(zaifAddress)
+
+  const handleApprove = useCallback(async () => {
+    try {
+      setRequestedApproval(true)
+      await onApprove()
+      setRequestedApproval(false)
+    } catch (e) {
+      console.error(e)
+    }
+  }, [onApprove])
+// ? toastSuccess('Success','You can now Play on Zai Options with ZAIF!') : toastError('Error','Some error occur, make sure you are paying enough gas!')
+ /* const { isApproving, isApproved, isConfirmed, isConfirming, handleApprove, handleConfirm , handleEnterPosition } =
+    useApproveConfirmTransaction({
+      onRequiresApproval: async () => {
+        try {
+          const response = await zaifAddress.allowance(account, predictionsContract.address)
+          const currentAllowance = ethersToBigNumber(response)
+          return currentAllowance.gt(0)
+        } catch (error) {
+          return false
+        }
+      },
+      onApprove: () => {
+        return zaifAddress.approve(predictionsContract.address, ethers.constants.MaxUint256)
+      },
+      onApproveSuccess: async () => {
+        toastSuccess(t('Contract enabled - you can now play on Zai Options!'))
+      },
+      onConfirm: () => {
+
+      },
+      onSuccess: async () => {
+        toastSuccess(t('Bet Done!'))
+      },
+    }) */
+
+   const renderApprovalOrBetsButton = () => {
+    return isApproved ? (
+      <Button
+      width="100%"
+      disabled={!account || disabled}
+      onClick={handleEnterPosition}
+      isLoading={isTxPending}
+      endIcon={isTxPending ? <AutoRenewIcon color="currentColor" spin /> : null}
+    >
+      {t(key)}
+    </Button>
+    ) : (
+      <Button mt="8px" width="100%" disabled={requestedApproval} onClick={handleApprove}>
+        {t('Enable Contract')}
+      </Button>
+    )
+  } 
+
+  // Convert zaif balance to ethers.BigNumber
+  const zaifBalanceAsBn = useMemo(() => {
+    return ethers.BigNumber.from(userBalance.toString())
+  }, [userBalance])
   const maxBalance = useMemo(() => {
-    return bnbBalanceAsBn.gt(dust) ? bnbBalanceAsBn.sub(dust) : dust
-  }, [bnbBalanceAsBn])
-  const balanceDisplay = formatBigNumber(bnbBalanceAsBn)
+    return zaifBalanceAsBn.gt(dust) ? zaifBalanceAsBn.sub(dust) : dust
+  }, [zaifBalanceAsBn])
+  const balanceDisplay = formatBigNumber(zaifBalanceAsBn)
 
   const valueAsBn = getValueAsEthersBn(value)
   const showFieldWarning = account && valueAsBn.gt(0) && errorMessage !== null
@@ -151,8 +244,9 @@ const SetPositionCard: React.FC<SetPositionCardProps> = ({ position, togglePosit
     swiper.attachEvents()
   }
 
-  const { key, disabled } = getButtonProps(valueAsBn, maxBalance, minBetAmount)
+  const { key, disabled } = GetButtonProps(valueAsBn, maxBalance, minBetAmount)
 
+  
   const handleEnterPosition = async () => {
     const betMethod = position === BetPosition.BULL ? 'betBull' : 'betBear'
 
@@ -160,8 +254,10 @@ const SetPositionCard: React.FC<SetPositionCardProps> = ({ position, togglePosit
        const getreferrer = Cookies.get("ReferAddress");
        const referrerAddress = getreferrer.replace(/"/g,"");
 
+      const zaifBetting = valueAsBn.toString(); 
+
     try {
-      const tx = await predictionsContract[betMethod](epoch,referrerAddress,{ value: valueAsBn.toString(), gasPrice })
+      const tx = await predictionsContract[betMethod](epoch,referrerAddress, zaifBetting)
       setIsTxPending(true)
       const receipt = await tx.wait()
       onSuccess(valueAsBn.toString(), receipt.transactionHash as string)
@@ -178,11 +274,11 @@ const SetPositionCard: React.FC<SetPositionCardProps> = ({ position, togglePosit
     const hasSufficientBalance = inputAmount.gt(0) && inputAmount.lte(maxBalance)
 
     if (!hasSufficientBalance) {
-      setErrorMessage({ key: 'Insufficient BNB balance' })
+      setErrorMessage({ key: 'Insufficient ZAIF balance' })
     } else if (inputAmount.gt(0) && inputAmount.lt(minBetAmount)) {
       setErrorMessage({
         key: 'A minimum amount of %num% %token% is required',
-        data: { num: formatBigNumber(minBetAmount), token: 'BNB' },
+        data: { num: formatBigNumber(minBetAmount), token: 'ZAIF' },
       })
     } else {
       setErrorMessage(null)
@@ -210,9 +306,9 @@ const SetPositionCard: React.FC<SetPositionCardProps> = ({ position, togglePosit
             {t('Commit')}:
           </Text>
           <Flex alignItems="center">
-            <BinanceIcon mr="4px  " />
+            <LogoIcon mr="4px  " />
             <Text bold textTransform="uppercase">
-              BNB
+              ZAIF
             </Text>
           </Flex>
         </Flex>
@@ -272,15 +368,7 @@ const SetPositionCard: React.FC<SetPositionCardProps> = ({ position, togglePosit
         </Flex>
         <Box mb="8px">
           {account ? (
-            <Button
-              width="100%"
-              disabled={!account || disabled}
-              onClick={handleEnterPosition}
-              isLoading={isTxPending}
-              endIcon={isTxPending ? <AutoRenewIcon color="currentColor" spin /> : null}
-            >
-              {t(key)}
-            </Button>
+            renderApprovalOrBetsButton()
           ) : (
             <ConnectWalletButton width="100%" />
           )}

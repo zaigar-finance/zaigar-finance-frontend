@@ -77,7 +77,7 @@ const tokens = {
     symbol: 'ZAIF',
     address: {
       56: '0x280C3Fc949b1a1D7a470067cA6F7b48b3CB219c5', 
-      97: '0xd614fa47af78087eff6cd439ceed0c5847e01834',
+      97: '0x47Ad2B1e6604A45c4d1a44245E143691317d8cc6',
     },
     decimals: 18,
     projectLink: 'https://zaigar.finance/',

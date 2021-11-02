@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import {
+  getReferralContract,
   getBep20Contract,
   getCakeContract,
   getZaifContract,
@@ -75,6 +76,11 @@ export const useCake = () => {
 export const useZaif = () => {
   const { library } = useActiveWeb3React()
   return useMemo(() => getZaifContract(library.getSigner()), [library])
+}
+
+export const useReferral = () => {
+  const { library } = useActiveWeb3React()
+  return useMemo(() => getReferralContract(library.getSigner()), [library])
 }
 
 export const useBunnyFactory = () => {

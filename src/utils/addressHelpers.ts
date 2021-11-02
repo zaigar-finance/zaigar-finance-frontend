@@ -20,6 +20,10 @@ export const getZaifAddress = () => {
   return getAddress(tokens.zaif.address)
 }
 
+export const getReferralAddress = () => {
+  return getAddress(addresses.zaiReferral)
+}
+
 export const getMasterChefAddress = () => {
   return getAddress(addresses.masterChef)
 }

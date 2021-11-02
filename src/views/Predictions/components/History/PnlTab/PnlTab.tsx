@@ -7,7 +7,7 @@ import { getRoundResult, Result } from 'state/predictions/helpers'
 import { REWARD_RATE } from 'state/predictions/config'
 import { getBscScanLink } from 'utils'
 import { useGetCurrentEpoch } from 'state/predictions/hooks'
-import { usePriceBnbBusd } from 'state/farms/hooks'
+import { usePriceBnbBusd , usePriceZaifBusd } from 'state/farms/hooks'
 import { Bet, BetPosition } from 'state/types'
 import { formatBnb, getMultiplier, getNetPayout } from '../helpers'
 import PnlChart from './PnlChart'
@@ -104,7 +104,7 @@ const PnlTab: React.FC<PnlTabProps> = ({ hasBetHistory, bets }) => {
   const { t } = useTranslation()
   const { account } = useWeb3React()
   const currentEpoch = useGetCurrentEpoch()
-  const bnbBusdPrice = usePriceBnbBusd()
+  const zaifBusdPrice = usePriceZaifBusd()
 
   const summary = getPnlSummary(bets, currentEpoch)
   const netResultAmount = summary.won.payout - summary.lost.amount
@@ -128,10 +128,10 @@ const PnlTab: React.FC<PnlTabProps> = ({ hasBetHistory, bets }) => {
             {t('Net results')}
           </Text>
           <Text bold fontSize="24px" lineHeight="1" color={netResultIsPositive ? 'success' : 'failure'}>
-            {`${netResultIsPositive ? '+' : ''}${formatBnb(netResultAmount)} BNB`}
+            {`${netResultIsPositive ? '+' : ''}${formatBnb(netResultAmount)} ZAIF`}
           </Text>
           <Text small color="textSubtle">
-            {`~$${formatBnb(bnbBusdPrice.times(netResultAmount).toNumber())}`}
+            {`~$${formatBnb(zaifBusdPrice.times(netResultAmount).toNumber())}`}
           </Text>
         </Flex>
       </Flex>
@@ -140,10 +140,10 @@ const PnlTab: React.FC<PnlTabProps> = ({ hasBetHistory, bets }) => {
           {t('Average return / round')}
         </Text>
         <Text bold color={avgBnbWonIsPositive ? 'success' : 'failure'}>
-          {`${avgBnbWonIsPositive ? '+' : ''}${formatBnb(avgBnbWonPerRound)} BNB`}
+          {`${avgBnbWonIsPositive ? '+' : ''}${formatBnb(avgBnbWonPerRound)} ZAIF`}
         </Text>
         <Text small color="textSubtle">
-          {`~$${formatBnb(bnbBusdPrice.times(avgBnbWonPerRound).toNumber())}`}
+          {`~$${formatBnb(zaifBusdPrice.times(avgBnbWonPerRound).toNumber())}`}
         </Text>
 
         {hasBestRound && (
@@ -152,13 +152,13 @@ const PnlTab: React.FC<PnlTabProps> = ({ hasBetHistory, bets }) => {
               {t('Best round: #%roundId%', { roundId: summary.won.bestRound.id })}
             </Text>
             <Flex alignItems="flex-end">
-              <Text bold color="success">{`+${formatBnb(summary.won.bestRound.payout)} BNB`}</Text>
+              <Text bold color="success">{`+${formatBnb(summary.won.bestRound.payout)} ZAIF`}</Text>
               <Text ml="4px" small color="textSubtle">
                 ({summary.won.bestRound.multiplier.toFixed(2)}x)
               </Text>
             </Flex>
             <Text small color="textSubtle">
-              {`~$${formatBnb(bnbBusdPrice.times(summary.won.bestRound.payout).toNumber())}`}
+              {`~$${formatBnb(zaifBusdPrice.times(summary.won.bestRound.payout).toNumber())}`}
             </Text>
           </>
         )}
@@ -166,16 +166,16 @@ const PnlTab: React.FC<PnlTabProps> = ({ hasBetHistory, bets }) => {
         <Text mt="16px" bold color="textSubtle">
           {t('Average position entered / round')}
         </Text>
-        <Text bold>{`${formatBnb(avgPositionEntered)} BNB`}</Text>
+        <Text bold>{`${formatBnb(avgPositionEntered)} ZAIF`}</Text>
         <Text small color="textSubtle">
-          {`~$${formatBnb(bnbBusdPrice.times(avgPositionEntered).toNumber())}`}
+          {`~$${formatBnb(zaifBusdPrice.times(avgPositionEntered).toNumber())}`}
         </Text>
 
         <Divider />
 
-        <SummaryRow type="won" summary={summary} bnbBusdPrice={bnbBusdPrice} />
-        <SummaryRow type="lost" summary={summary} bnbBusdPrice={bnbBusdPrice} />
-        <SummaryRow type="entered" summary={summary} bnbBusdPrice={bnbBusdPrice} />
+        <SummaryRow type="won" summary={summary} zaifBusdPrice={zaifBusdPrice} />
+        <SummaryRow type="lost" summary={summary} zaifBusdPrice={zaifBusdPrice} />
+        <SummaryRow type="entered" summary={summary} zaifBusdPrice={zaifBusdPrice} />
 
         <Flex justifyContent="center" mt="24px">
           <Link href={`${getBscScanLink(account, 'address')}#internaltx`} mb="16px" external>

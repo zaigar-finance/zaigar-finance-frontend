@@ -16,7 +16,7 @@ import CakeDataRow from './components/CakeDataRow'
 import ZaifDataRow from './components/ZaifDataRow'
 import { WedgeTopLeft, InnerWedgeWrapper, OuterWedgeWrapper, WedgeTopRight } from './components/WedgeSvgs'
 import UserBanner from './components/UserBanner'
-import FarmAuctionsBanner from './components/Banners/FarmAuctionsBanner'
+// import NewsBanner from './components/Banners/NewsBanner'
 
 const StyledHeroSection = styled(PageSection)`
   padding-top: 16px;
@@ -37,8 +37,8 @@ const UserBannerWrapper = styled(Container)`
   padding-right: 0px;
 
   ${({ theme }) => theme.mediaQueries.lg} {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 `
 
@@ -70,6 +70,7 @@ const Home: React.FC = () => {
           mt={[account ? '0' : '-16px', null, null, account ? '0' : '-48px']}
           pb="24px"
         >
+
         </Flex>
         <Hero />
       </StyledHeroSection>

@@ -5,6 +5,7 @@ import { PoolCategory } from 'config/constants/types'
 
 // Addresses
 import {
+  getReferralAddress,
   getAddress,
   getPancakeProfileAddress,
   getPancakeRabbitsAddress,
@@ -49,6 +50,7 @@ import claimRefundAbi from 'config/abi/claimRefund.json'
 import tradingCompetitionAbi from 'config/abi/tradingCompetition.json'
 import easterNftAbi from 'config/abi/easterNft.json'
 import cakeVaultAbi from 'config/abi/cakeVault.json'
+import referralAbi from 'config/abi/zaiReferral.json'
 import predictionsAbi from 'config/abi/zaiOption.json'
 import chainlinkOracleAbi from 'config/abi/chainlinkOracle.json'
 import MultiCallAbi from 'config/abi/Multicall.json'
@@ -95,6 +97,11 @@ export const getCakeContract = (signer?: ethers.Signer | ethers.providers.Provid
 export const getZaifContract = (signer?: ethers.Signer | ethers.providers.Provider) => {
   return getContract(zaifAbi, getZaifAddress(), signer)
 }
+
+export const getReferralContract = (signer?: ethers.Signer | ethers.providers.Provider) => {
+  return getContract(referralAbi, getReferralAddress(), signer)
+}
+
 export const getProfileContract = (signer?: ethers.Signer | ethers.providers.Provider) => {
   return getContract(profileABI, getPancakeProfileAddress(), signer)
 }
