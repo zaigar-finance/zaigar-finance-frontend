@@ -19,7 +19,7 @@ const SoonRoundCard: React.FC<SoonRoundCardProps> = ({ round }) => {
   const intervalSeconds = useGetIntervalSeconds()
   const currentRoundLockTimestamp = useGetCurrentRoundLockTimestamp()
   // const { secondsRemaining } = useCountdown(currentRoundLockTimestamp + ROUND_BUFFER)
-  const { secondsRemaining } = useCountdown(round.startTimestamp + useGetIntervalSeconds() + ROUND_BUFFER - 250)
+  const { secondsRemaining } = useCountdown(round.startTimestamp + useGetIntervalSeconds() + ROUND_BUFFER - 1750)
   const countdown = formatRoundTime(secondsRemaining)
   const { t } = useTranslation()
   const { theme } = useTheme()
