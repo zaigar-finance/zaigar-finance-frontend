@@ -122,7 +122,7 @@ const Label = styled(Flex)<{ dir: 'left' | 'right' }>`
 
 export const PricePairLabel: React.FC = () => {
   const price = useGetLastOraclePrice()
-  const priceAsNumber = parseFloat(formatBigNumberToFixed(price, 3, 8))
+  const priceAsNumber = parseFloat(formatBigNumberToFixed(price, 4, 8))
   const { countUp, update } = useCountUp({
     start: 0,
     end: priceAsNumber,

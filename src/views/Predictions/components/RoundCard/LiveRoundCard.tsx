@@ -48,7 +48,7 @@ const LiveRoundCard: React.FC<LiveRoundCardProps> = ({
   const priceColor = isBull ? 'success' : 'failure'
 
   const priceDifference = getPriceDifference(price, lockPrice)
-  const priceAsNumber = parseFloat(formatBigNumberToFixed(price, 3, 8))
+  const priceAsNumber = parseFloat(formatBigNumberToFixed(price, 4, 8))
   const hasRoundFailed = getHasRoundFailed(round, bufferSeconds)
 
   const { countUp, update } = useCountUp({
