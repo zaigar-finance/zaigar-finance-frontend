@@ -35,7 +35,7 @@ const RoundResult: React.FC<RoundResultProps> = ({ round, children, ...props }) 
         </Flex>
       )}
       {lockPrice && <LockPriceHistoryRow lockPrice={lockPrice} />}
-      <PrizePoolHistoryRow totalAmount={totalAmount} />
+      <PrizePoolHistoryRow totalAmount={totalAmount - totalAmount*5/100} />
       {children}
     </RoundResultBox>
   )

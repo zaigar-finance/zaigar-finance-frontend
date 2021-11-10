@@ -2,19 +2,30 @@ import { Bet, BetPosition } from 'state/types'
 import { formatNumber } from 'utils/formatBalance'
 
 export const formatUsd = (usd: number) => {
-  return `$${formatNumber(usd || 0, 3, 3)}`
+  return `$${formatNumber(usd || 0, 4, 4)}`
 }
 
 export const formatBnb = (bnb: number) => {
-  return bnb ? bnb.toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 }) : '0'
+  return bnb ? bnb.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 }) : '0'
 }
 
 export const getMultiplier = (total: number, amount: number) => {
   if (total === 0 || amount === 0) {
     return 0
   }
-
+  
   return total / amount
+}
+
+export const getMultiplierv4 = (total: number, amount: number) => {
+  if (total === 0 || amount === 0) {
+    return 0
+  }
+  
+  const finalaccount = total / amount
+  const subtractFee = finalaccount*5/100
+
+  return finalaccount - subtractFee 
 }
 
 /**

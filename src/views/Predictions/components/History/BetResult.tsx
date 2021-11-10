@@ -41,7 +41,7 @@ const BetResult: React.FC<BetResultProps> = ({ bet, result }) => {
   const zaifBusdPrice = usePriceZaifBusd()
   const canClaim = !bet.claimed && bet.position === bet.round.position
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
-    <Text as="p">{t('Includes your original position and your winnings, minus the %fee% fee.', { fee: '15%' })}</Text>,
+    <Text as="p">{t('Includes your active position and your winnings, minus the %fee% (treasury) fee. Does not count 2% (referral/pot) and Zaif exit fees.', { fee: '3%' })}</Text>,
     { placement: 'auto' },
   )
 
@@ -49,7 +49,7 @@ const BetResult: React.FC<BetResultProps> = ({ bet, result }) => {
 
   // Winners get the payout, otherwise the claim what they put it if it was canceled
   const payout = isWinner ? getNetPayout(bet, REWARD_RATE) : bet.amount
-  const returned = payout + bet.amount
+  const returned = payout + bet.amount - bet.amount*5/100
 
   const getHeaderColor = () => {
     switch (result) {
@@ -150,7 +150,7 @@ const BetResult: React.FC<BetResultProps> = ({ bet, result }) => {
         </Flex>
         <Flex alignItems="center" justifyContent="space-between" mb="16px">
           <Text>{t('Your position')}</Text>
-          <Text>{`${formatBnb(bet.amount)} ZAIF`}</Text>
+          <Text>{`${formatBnb(bet.amount - bet.amount*5/100)} ZAIF`}</Text>
         </Flex>
         <Flex alignItems="start" justifyContent="space-between">
           <Text bold>{isWinner ? t('Your winnings') : t('Your Result')}:</Text>

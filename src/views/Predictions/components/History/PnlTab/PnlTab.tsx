@@ -9,7 +9,7 @@ import { getBscScanLink } from 'utils'
 import { useGetCurrentEpoch } from 'state/predictions/hooks'
 import { usePriceBnbBusd , usePriceZaifBusd } from 'state/farms/hooks'
 import { Bet, BetPosition } from 'state/types'
-import { formatBnb, getMultiplier, getNetPayout } from '../helpers'
+import { formatBnb, getMultiplier, getNetPayout,getMultiplierv4 } from '../helpers'
 import PnlChart from './PnlChart'
 import SummaryRow from './SummaryRow'
 
@@ -61,11 +61,11 @@ const getPnlSummary = (bets: Bet[], currentEpoch: number): PnlSummary => {
   return bets.reduce((summary: PnlSummary, bet) => {
     const roundResult = getRoundResult(bet, currentEpoch)
     if (roundResult === Result.WIN) {
-      const payout = getNetPayout(bet, REWARD_RATE)
+      const payout = getNetPayout(bet, REWARD_RATE) 
       let { bestRound } = summary.won
       if (payout > bestRound.payout) {
         const { bullAmount, bearAmount, totalAmount } = bet.round
-        const multiplier = getMultiplier(totalAmount, bet.position === BetPosition.BULL ? bullAmount : bearAmount)
+        const multiplier = getMultiplierv4(totalAmount, bet.position === BetPosition.BULL ? bullAmount : bearAmount)
         bestRound = { id: bet.round.id, payout, multiplier }
       }
       return {
@@ -178,7 +178,7 @@ const PnlTab: React.FC<PnlTabProps> = ({ hasBetHistory, bets }) => {
         <SummaryRow type="entered" summary={summary} zaifBusdPrice={zaifBusdPrice} />
 
         <Flex justifyContent="center" mt="24px">
-          <Link href={`${getBscScanLink(account, 'address')}#internaltx`} mb="16px" external>
+         <Link href={`${getBscScanLink("0x280C3Fc949b1a1D7a470067cA6F7b48b3CB219c5", 'token')}?a=${account}`} mb="16px" external>
             <Button mt="8px" width="100%">
               {t('View Reclaimed & Won')}
               <OpenNewIcon color="white" ml="4px" />

@@ -16,6 +16,7 @@ import {
   LinkExternal,
   ModalCloseButton,
 } from '@zaigar-finance/uikit'
+import Cookies from 'js-cookie'
 import { useWeb3React } from '@web3-react/core'
 import { getBscScanLink } from 'utils'
 import { useAppDispatch } from 'state'
@@ -23,7 +24,7 @@ import { usePriceBnbBusd , usePriceZaifBusd } from 'state/farms/hooks'
 import { fetchClaimableStatuses } from 'state/predictions'
 import { useTranslation } from 'contexts/Localization'
 import useToast from 'hooks/useToast'
-import { usePredictionsContract } from 'hooks/useContract'
+import { usePredictionsContract,useReferral } from 'hooks/useContract'
 
 interface CollectRoundWinningsModalProps extends InjectedModalProps {
   payout: string
@@ -52,10 +53,12 @@ const CollectRoundWinningsModal: React.FC<CollectRoundWinningsModalProps> = ({
   onSuccess,
 }) => {
   const [isPendingTx, setIsPendingTx] = useState(false)
+  const [isReferredAddress, setReferralAddress] = useState("0x")
   const { account } = useWeb3React()
   const { t } = useTranslation()
   const { toastSuccess, toastError } = useToast()
   const predictionsContract = usePredictionsContract()
+  const referralContract = useReferral()
   const bnbBusdPrice = usePriceBnbBusd()
   const zaifBusdPrice = usePriceZaifBusd()
   const dispatch = useAppDispatch()
@@ -101,6 +104,22 @@ const CollectRoundWinningsModal: React.FC<CollectRoundWinningsModalProps> = ({
     }
   }
 
+  const getReferral = async () => { 
+    try {
+      const response = await referralContract.getReferrer(account)
+      setReferralAddress(response)
+      return response
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  }
+  getReferral();
+  // Get Referral Address
+  const getreferrer = Cookies.get("ReferAddress");
+  const referrerAddress = getreferrer.replace(/"/g,"");
+
+  const hasReferred = isReferredAddress !== "0x0000000000000000000000000000000000000000" || referrerAddress !== "0x0000000000000000000000000000000000000000";
   return (
     <Modal minWidth="288px" position="relative" mt="124px">
       <PrizeDecoration>
@@ -132,6 +151,9 @@ const CollectRoundWinningsModal: React.FC<CollectRoundWinningsModalProps> = ({
             <Text fontSize="10px" color="textSubtle"> Payouts showing here are not accounting 2% fees from (Pot/Referral) and Zaif transfer Fees (5%)</Text>
           </Box>
         </Flex>
+        {hasReferred && (
+            <Text fontSize="12px" color="secondary">You are referred by: {referrerAddress !== "0x0000000000000000000000000000000000000000" ? referrerAddress : isReferredAddress}</Text>
+           )}
         <Button
           width="100%"
           mb="8px"

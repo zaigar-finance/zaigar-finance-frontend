@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useCountUp } from 'react-countup'
-import { BigNumber } from 'ethers'
 import {
   Card,
   CardBody,
@@ -16,9 +15,6 @@ import { NodeRound, NodeLedger, BetPosition } from 'state/types'
 import { formatBigNumberToFixed } from 'utils/formatBalance'
 import { useGetLastOraclePrice, useGetBufferSeconds } from 'state/predictions/hooks'
 import RoundProgress from 'components/RoundProgress'
-import { usePredictionsContract,useERC20 } from 'hooks/useContract'
-import { PredictionsContract } from 'utils/types'
-import { ethersToBigNumber } from 'utils/bigNumber'
 import { formatUsdv2, getHasRoundFailed, getPriceDifference } from '../../helpers'
 import PositionTag from '../PositionTag'
 import { RoundResultBox, LockPriceRow, PrizePoolRow } from '../RoundResult'
@@ -55,9 +51,6 @@ const LiveRoundCard: React.FC<LiveRoundCardProps> = ({
   const priceAsNumber = parseFloat(formatBigNumberToFixed(price, 3, 8))
   const hasRoundFailed = getHasRoundFailed(round, bufferSeconds)
 
-  const predictionContract = usePredictionsContract()
-  const [jackpotAmount, getJackpot] = useState(0);
-
   const { countUp, update } = useCountUp({
     start: 0,
     end: priceAsNumber,
@@ -68,19 +61,7 @@ const LiveRoundCard: React.FC<LiveRoundCardProps> = ({
     placement: 'bottom',
   })
 
-  const jackpotAccumulated = async () => { 
-    try {
-      const response = await predictionContract.getJackpotAmount()
-      const currentJackpot = ethersToBigNumber(response)
-      getJackpot(currentJackpot.toNumber())
-      return currentJackpot.gt(0)
-    } catch (error) {
-      console.log(error)
-      return false
-    }
-  }
 
-  jackpotAccumulated();
 
   const updateRef = useRef(update)
 

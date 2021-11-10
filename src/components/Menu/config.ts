@@ -45,11 +45,11 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     icon: 'VaultIcon',
     href: '/vaults',
   }, 
- /* {
+  {
     label: t('Zai Options'),
     icon: 'PredictionsIcon',
     href: '/options/0x0',
-  }, */
+  }, 
 /*  {
     label: t('Lottery'),
     icon: 'TicketIcon',

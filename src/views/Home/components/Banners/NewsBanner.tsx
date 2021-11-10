@@ -90,7 +90,7 @@ const NewsBanner = () => {
                 {t('Play')}
               </Text>            
           </Link>
-          <Link href="https://docs.zaigar.finance/products/zaioptions">
+          <Link href="https://docs.zaigar.finance/products/zai-options">
               <ArrowForwardIcon color="Contrast" />
               <Text color="contrast" bold fontSize="22px" mr="4px">
                 {t('Learn')}

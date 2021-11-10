@@ -46,6 +46,7 @@ const HistoricalBet: React.FC<BetProps> = ({ bet }) => {
   const status = useGetPredictionsStatus()
   const dispatch = useAppDispatch()
   const { account } = useWeb3React()
+  const formatedBet = bet.amount - bet.amount*5/100
 
   const toggleOpen = () => setIsOpen(!isOpen)
 
@@ -145,7 +146,7 @@ const HistoricalBet: React.FC<BetProps> = ({ bet }) => {
             epoch={bet.round.epoch}
             payout={formatBnb(payout)}
             onSuccess={handleSuccess}
-            betAmount={bet.amount.toString()}
+            betAmount={formatedBet.toString()}
             scale="sm"
             mr="8px"
           >

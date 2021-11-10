@@ -18,7 +18,7 @@ const SetCol = styled.div`
 const HelpButtonWrapper = styled.div`
   order: 1;
   margin: 0 8px 0 0;
-
+  
   ${({ theme }) => theme.mediaQueries.lg} {
     order: 2;
     margin: 0 0 0 8px;
@@ -27,7 +27,10 @@ const HelpButtonWrapper = styled.div`
 
 const TimerLabelWrapper = styled.div`
   order: 2;
-
+    @media screen and (max-width: 360px){
+      width:120px;
+      margin-right:-15px; 
+    }
   ${({ theme }) => theme.mediaQueries.lg} {
     order: 1;
   }
@@ -44,7 +47,7 @@ const HistoryButtonWrapper = styled.div`
 
 const Menu = () => {
   return (
-    <FlexRow alignItems="center" p="22px">
+    <FlexRow alignItems="center" p="23px" mb="12px" mt="10px">
       <SetCol>
         <PricePairLabel />
         <JackpotLabel />
@@ -61,7 +64,7 @@ const Menu = () => {
             <IconButton
               variant="subtle"
               as="a"
-              href="https://docs.zaigar.finance/products/zaioptions"
+              href="https://docs.zaigar.finance/products/zai-options"
               target="_blank"
               rel="noreferrer noopener"
             >

@@ -7,7 +7,7 @@ import { Flex, Text, Link, Heading } from '@zaigar-finance/uikit'
 import { Result } from 'state/predictions/helpers'
 import { PayoutRow, RoundResultHistory } from '../RoundResult'
 import BetResult from './BetResult'
-import { getMultiplier } from './helpers'
+import { getMultiplier, getMultiplierv4 } from './helpers'
 
 interface BetDetailsProps {
   bet: Bet
@@ -23,8 +23,8 @@ const StyledBetDetails = styled.div`
 const BetDetails: React.FC<BetDetailsProps> = ({ bet, result }) => {
   const { t } = useTranslation()
   const { totalAmount, bullAmount, bearAmount } = bet.round
-  const bullMultiplier = getMultiplier(totalAmount, bullAmount)
-  const bearMultiplier = getMultiplier(totalAmount, bearAmount)
+  const bullMultiplier = getMultiplierv4(totalAmount, bullAmount)
+  const bearMultiplier = getMultiplierv4(totalAmount, bearAmount)
 
   return (
     <StyledBetDetails>
@@ -38,8 +38,8 @@ const BetDetails: React.FC<BetDetailsProps> = ({ bet, result }) => {
       {result !== Result.LIVE && <BetResult bet={bet} result={result} />}
       <Heading mb="8px">{t('Round History')}</Heading>
       <RoundResultHistory round={bet.round} mb="24px">
-        <PayoutRow positionLabel={t('Up')} multiplier={bullMultiplier} amount={bullAmount} />
-        <PayoutRow positionLabel={t('Down')} multiplier={bearMultiplier} amount={bearAmount} />
+        <PayoutRow positionLabel={t('Up')} multiplier={bullMultiplier} amount={bullAmount - bullAmount*5/100 } />
+        <PayoutRow positionLabel={t('Down')} multiplier={bearMultiplier} amount={bearAmount - bearAmount*5/100} />
       </RoundResultHistory>
       <Flex alignItems="center" justifyContent="space-between" mb="8px">
         <Text>{t('Opening Block')}</Text>
