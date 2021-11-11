@@ -56,7 +56,7 @@ const ZaifDataRow = () => {
   return (
     <Grid>
       <Flex flexDirection="column">
-        <Text color="textSubtle">{t('Total supply')}</Text>
+        <Text color="textSubtle">{t('Capped supply')}</Text>
         {zaifSupply ? (
           <Balance decimals={0} lineHeight="1.1" fontSize="24px" bold value={maxSupply} />
         ) : (
