@@ -84,9 +84,9 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     ],
   }, */
   {
-    label: 'Airdrop Raffle',
-    icon: 'TicketIcon',
-    href: '/airdrop',
+    label: 'Bounty Campaign',
+    icon: 'TeamBattleIcon',
+    href: 'https://bitcointalk.org/index.php?topic=5373501.0',
   },
   {
     label: 'Charts',

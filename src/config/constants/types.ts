@@ -73,6 +73,7 @@ export interface PoolConfig {
   sousId: number
   earningToken: Token
   stakingToken: Token
+  requiredTokens?: number
   contractAddress: Address
   poolCategory: PoolCategory
   tokenPerBlock: string

@@ -12,7 +12,7 @@ import StyledCardHeader from './StyledCardHeader'
 import CardActions from './CardActions'
 
 const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) => {
-  const { sousId, stakingToken, earningToken, isFinished, userData } = pool
+  const { sousId, stakingToken, earningToken, isFinished, userData , requiredTokens } = pool
   const { t } = useTranslation()
   const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO
   const accountHasStakedBalance = stakedBalance.gt(0)
@@ -30,6 +30,12 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
       />
       <CardBody>
         <AprRow pool={pool} stakedBalance={stakedBalance} />
+        {sousId !== 0 ? (
+        <Flex justifyContent="space-between" alignItems="center" mb="8px">
+        <Text color="#FF6347">Min. Required: </Text>
+        <Text color="#FF6347">{requiredTokens} {stakingToken.symbol}</Text>
+        </Flex>
+        ):("")}
         <Flex mt="24px" flexDirection="column">
           {account ? (
             <CardActions pool={pool} stakedBalance={stakedBalance} />

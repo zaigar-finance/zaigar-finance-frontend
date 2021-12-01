@@ -64,10 +64,6 @@ const TeamCard = () => {
         <Label>{t('Renato Almeida(Project Advisor)')}</Label>
         </Block>
         <Block>
-        <CardImage src="/images/teamzaigar/team-heslei.png" alt="Heslei" width={256} height={256} />
-        <Label>{t('Heslei Oliveira(Com. Director)')}</Label>
-        </Block>
-        <Block>
         <CardImage src="/images/teamzaigar/team-marcelo.png" alt="Marcelo" width={256} height={256} />
         <Label>{t('Marcelo Borges(Financial Director)')}</Label>
         </Block>
