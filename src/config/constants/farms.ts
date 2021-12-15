@@ -24,7 +24,7 @@ const farms: FarmConfig[] = [
   {
     pid: 2,
     lpSymbol: 'ZFAI-BNB LP',
-    depositFee: 0,
+    depositFee: 300,
     lpAddresses: {
       97: '0x3ed8936cAFDF85cfDBa29Fbe5940A5b0524824F4',
       56: '0x03340dd153a27e16f3c79fa58b90f7fb13470902',
@@ -57,7 +57,7 @@ const farms: FarmConfig[] = [
     {
       pid: 1,
       lpSymbol: 'ZAIF',
-      depositFee: 0,
+      depositFee: 300,
       lpAddresses: {
         97: '0xd614fa47af78087eff6cd439ceed0c5847e01834',
         56: '0x32C065Da7daFe3CFF90a5fE41FEC1e6D71473Cf8',
@@ -73,7 +73,7 @@ const farms: FarmConfig[] = [
    {
     pid: 3,
     lpSymbol: 'ZAIF-BNB LP',
-    depositFee: 0,
+    depositFee: 300,
     lpAddresses: {
       97: '0x620d017bd536cd35d1cf57425e697042d008ba52',
       56: '0x32C065Da7daFe3CFF90a5fE41FEC1e6D71473Cf8',
@@ -103,7 +103,7 @@ const farms: FarmConfig[] = [
   {
     pid: 10,
     lpSymbol: 'ZEFI',
-    depositFee: 200,
+    depositFee: 400,
     lpAddresses: {
       97: '0x6ce8da28e2f864420840cf74474eff5fd80e65b8',
       56: '0x09B0123e36A2b0A5b95474455E437e8861a6C61E',

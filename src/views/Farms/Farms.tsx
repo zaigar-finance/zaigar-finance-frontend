@@ -412,7 +412,6 @@ const Farms: React.FC<FarmsProps> = (farmsProps) => {
         <NavLink exact activeClassName="active" to="/farms/auction" id="lottery-pot-banner">
           <Button p="0" variant="text">
           </Button>
-          <Text> {t('Fees will be used to buyback and burn ZFAI and ZAIF')}</Text>
         </NavLink>
       </PageHeader>
       <Page>

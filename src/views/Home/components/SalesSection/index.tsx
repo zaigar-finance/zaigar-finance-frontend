@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Text, Button, Link } from '@zaigar-finance/uikit'
+import { Flex, Text, Button, Link, ButtonMenu } from '@zaigar-finance/uikit'
 import { useTranslation } from 'contexts/Localization'
 import CompositeImage, { CompositeImageProps } from '../CompositeImage'
 import PurpleWordHeading from '../PurpleWordHeading'
@@ -16,13 +16,14 @@ export interface SalesSectionProps {
   reverse: boolean
   primaryButton: SalesSectionButton
   secondaryButton: SalesSectionButton
+  thirdButton?: SalesSectionButton
   images: CompositeImageProps
 }
 
 const SalesSection: React.FC<SalesSectionProps> = (props) => {
   const { t } = useTranslation()
 
-  const { headingText, bodyText, reverse, primaryButton, secondaryButton, images } = props
+  const { headingText, bodyText, reverse, primaryButton, secondaryButton, thirdButton, images } = props
 
   const headingTranslatedText = t(headingText)
   const bodyTranslatedText = t(bodyText)
@@ -52,6 +53,15 @@ const SalesSection: React.FC<SalesSectionProps> = (props) => {
                   {t(primaryButton.text)}
                 </Text>
               </Button>
+              {thirdButton?(
+                <><Link ml="10px" color="secondary" external={thirdButton.external} href={thirdButton.to}>
+                <Button color="secondary">
+                {t(thirdButton.text)}
+                </Button>
+                </Link></>
+            ):(
+           <></>
+            )}
             </Link>
             <Link external={secondaryButton.external} href={secondaryButton.to}>
               {t(secondaryButton.text)}

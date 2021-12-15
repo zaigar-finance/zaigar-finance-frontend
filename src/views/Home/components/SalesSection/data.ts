@@ -63,9 +63,14 @@ export const cakeSectionData: SalesSectionProps = {
     text: 'Learn',
     external: true,
   },
+  thirdButton: {
+    to: 'https://pix.zaigar.finance/ZFAI',
+    text: 'Buy with PIX',
+    external: true,
+  },
 
   images: {
-    path: '/images/home/cake/',
+    path: '/images/home/zfai/',
     attributes: [
       { src: 'bottom-right', alt: 'Small 3d star' },
       { src: 'top-right', alt: 'Small 3d star' },
@@ -88,6 +93,11 @@ export const zaifSectionData: SalesSectionProps = {
   secondaryButton: {
     to: 'https://docs.zaigar.finance/tokens/zaif',
     text: 'Learn',
+    external: true,
+  },
+  thirdButton: {
+    to: 'https://pix.zaigar.finance/ZAIF',
+    text: 'Buy with PIX',
     external: true,
   },
 
