@@ -79,28 +79,24 @@ const NftBanner = () => {
 
   return (
     <Wrapper>
-      <Inner>
-        <LeftWrapper>
-        <img className="img-fluid" src="/images/home/banner/nftBanner.jpg" alt={t('Banner')} />
-        </LeftWrapper>
-      </Inner>
-      <Flex margin-bottom="10px">
-        <Button scale="sm">
-      <Link href="https://givelab.com/zw-giveaway/zaigar-warriors-nft-giveaway">       
-              <ArrowForwardIcon color="warning" />
-              <Text color="warning" bold fontSize="22px" ml="5px" mr="5px">
-                {t('Participate')}
-              </Text>      
-          </Link>
-          </Button>      
-      <Link href="https://zaigarwarriors.com">
+    <Inner>
+      <LeftWrapper>
+        <StyledSubheading>{t('New Launch!')}</StyledSubheading>
+        <StyledHeading scale="xl">{t('Zaigar Warriors NFTs are coming.. Full Info on Site')}</StyledHeading>
+        <Flex margin-bottom="10px">
+        <Link href="https://zaigarwarriors.com">
               <ArrowForwardIcon ml="3px" color="contrast" />
               <Text color="contrast" bold fontSize="20px" ml="6px" mr="4px">
                 {t('Official Site')}
               </Text>         
           </Link>
-      </Flex>
-    </Wrapper>
+        </Flex>
+      </LeftWrapper>
+      <RightWrapper>
+        <img src="/images/decorations/zw_logo.png" alt={t('Zaigar Warriors')} />
+      </RightWrapper>
+    </Inner>
+  </Wrapper>
   )
 }
 
