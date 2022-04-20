@@ -82,7 +82,7 @@ const NftBanner = () => {
     <Inner>
       <LeftWrapper>
         <StyledSubheading>{t('New Launch!')}</StyledSubheading>
-        <StyledHeading scale="xl">{t('Zaigar Warriors NFTs are coming.. Full Info on Site')}</StyledHeading>
+        <StyledHeading scale="xl">{t('Zaigar Warriors NFTs Whitelist Mint Phase is ON! Full Info on Site')}</StyledHeading>
         <Flex margin-bottom="10px">
         <Link href="https://zaigarwarriors.com">
               <ArrowForwardIcon ml="3px" color="contrast" />
