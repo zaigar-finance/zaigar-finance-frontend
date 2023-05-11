@@ -26,7 +26,7 @@ const StyledHeading = styled(Heading)`
 const Wrapper = styled.div`
   border-radius: 15px;
   width: 100%;
-  background-image: linear-gradient(#FF4F4B, #0000);
+  background-image: linear-gradient(#18b53c, #0000);
   max-height: max-content;
   overflow: hidden;
 `
@@ -81,20 +81,17 @@ const NftBanner = () => {
     <Wrapper>
     <Inner>
       <LeftWrapper>
-        <StyledSubheading>{t('New Launch!')}</StyledSubheading>
-        <StyledHeading scale="xl">{t('Zaigar Warriors NFTs Airdrop Phase is ON! mint on DAPP clicking here.')}</StyledHeading>
+        <StyledSubheading>{t('Staking Update!')}</StyledSubheading>
+        <StyledHeading scale="xl">{t('Stake your ZFAIs and earn up to 30% APR clicking here.')}</StyledHeading>
         <Flex margin-bottom="10px">
-        <Link href="https://app.zaigarwarriors.com">
+        <Link href="https://zaigar.finance/vaults">
               <ArrowForwardIcon ml="3px" color="contrast" />
               <Text color="contrast" bold fontSize="20px" ml="6px" mr="4px">
-                {t('Enter DAPP')}
+                {t('Enter Page')}
               </Text>         
           </Link>
         </Flex>
       </LeftWrapper>
-      <RightWrapper>
-        <img src="/images/decorations/zw_logo.png" alt={t('Zaigar Warriors')} />
-      </RightWrapper>
     </Inner>
   </Wrapper>
   )

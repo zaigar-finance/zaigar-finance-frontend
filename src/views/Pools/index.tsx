@@ -240,7 +240,7 @@ const Pools: React.FC = () => {
         <Flex justifyContent="space-between" flexDirection={['column', null, null, 'row']}>
           <Flex flex="1" flexDirection="column" mr={['8px', 0]}>
             <Heading as="h1" scale="xxl" color="secondary" mb="24px">
-              {t('Vaults')}
+              {t('ZFAI Staking')}
             </Heading>
             <Heading scale="md" color="text">
               {t('Just stake ZFAI tokens to earn.')}
@@ -297,7 +297,7 @@ const Pools: React.FC = () => {
               <Text fontSize="12px" bold color="textSubtle" textTransform="uppercase">
                 {t('Search')}
               </Text>
-              <SearchInput onChange={handleChangeSearchQuery} placeholder="Search Vaults" />
+              <SearchInput onChange={handleChangeSearchQuery} placeholder="Search Stakings" />
             </LabelWrapper>
           </FilterContainer>
         </PoolControls>

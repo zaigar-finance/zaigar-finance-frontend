@@ -63,11 +63,6 @@ export const cakeSectionData: SalesSectionProps = {
     text: 'Learn',
     external: true,
   },
-  thirdButton: {
-    to: 'https://pix.zaigar.finance/ZFAI',
-    text: 'Buy with PIX',
-    external: true,
-  },
 
   images: {
     path: '/images/home/zfai/',

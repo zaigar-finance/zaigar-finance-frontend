@@ -2,7 +2,6 @@ import tokens from './tokens'
 import { PoolConfig, PoolCategory } from './types'
 
 const pools: PoolConfig[] = [
-  
   {
     sousId: 0,
     stakingToken: tokens.zfai,

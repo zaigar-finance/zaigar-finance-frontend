@@ -20,7 +20,7 @@ const farms: FarmConfig[] = [
     }, 
     token: tokens.zfai,
     quoteToken: tokens.wbnb,
-  }, 
+  },
   {
     pid: 2,
     lpSymbol: 'ZFAI-BNB LP',

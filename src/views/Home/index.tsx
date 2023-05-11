@@ -18,6 +18,7 @@ import { WedgeTopLeft, InnerWedgeWrapper, OuterWedgeWrapper, WedgeTopRight } fro
 import UserBanner from './components/UserBanner'
 import NewsBanner from './components/Banners/NewsBanner'
 import NftBanner from './components/Banners/NftBanner'
+import StakeBanner from './components/Banners/StakeBanner'
 
 const StyledHeroSection = styled(PageSection)`
   padding-top: 16px;
@@ -71,7 +72,7 @@ const Home: React.FC = () => {
           mt={[account ? '0' : '-16px', null, null, account ? '0' : '-48px']}
           pb="24px"
         >
-          <NftBanner />
+         <StakeBanner /> 
         </Flex>
         <Hero />
       </StyledHeroSection>
@@ -146,8 +147,8 @@ const Home: React.FC = () => {
       >
         <SalesSection {...cakeSectionData} />
         <CakeDataRow />
-        <SalesSection {...zaifSectionData} />
-        <ZaifDataRow /> 
+       {/* <SalesSection {...zaifSectionData} />
+        <ZaifDataRow /> */} 
       </PageSection>
     {/* <PageSection
         innerProps={{ style: HomeSectionContainerStyles }}

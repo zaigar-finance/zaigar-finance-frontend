@@ -41,15 +41,15 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     href: '/pools',
   },
   {
-    label: t(' Vaults'),
+    label: t(' ZFAI Staking'),
     icon: 'VaultIcon',
     href: '/vaults',
   }, 
-  {
+ /* {
     label: t('Zai Options'),
     icon: 'PredictionsIcon',
     href: '/options/0x0',
-  }, 
+  }, */ 
 /*  {
     label: t('Lottery'),
     icon: 'TicketIcon',
@@ -83,11 +83,11 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
       },
     ],
   }, */
-  {
+ /* {
     label: 'Bounty Campaign',
     icon: 'TeamBattleIcon',
     href: 'https://bitcointalk.org/index.php?topic=5373501.0',
-  },
+  }, */
   {
     label: 'Charts',
     icon: 'InfoIcon',
