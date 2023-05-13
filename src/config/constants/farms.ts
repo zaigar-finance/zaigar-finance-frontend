@@ -73,7 +73,7 @@ const farms: FarmConfig[] = [
    {
     pid: 3,
     lpSymbol: 'ZAIF-BNB LP',
-    depositFee: 300,
+    depositFee: 0,
     lpAddresses: {
       97: '0x620d017bd536cd35d1cf57425e697042d008ba52',
       56: '0x32C065Da7daFe3CFF90a5fE41FEC1e6D71473Cf8',
