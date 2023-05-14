@@ -82,7 +82,7 @@ const NftBanner = () => {
     <Inner>
       <LeftWrapper>
         <StyledSubheading>{t('Staking Update!')}</StyledSubheading>
-        <StyledHeading scale="xl">{t('Stake your ZFAIs and earn up to 60% APR clicking here.')}</StyledHeading>
+        <StyledHeading scale="xl">{t('Stake your ZFAIs and earn up to 198% APR clicking here.')}</StyledHeading>
         <Flex margin-bottom="10px">
         <Link href="https://zaigar.finance/vaults">
               <ArrowForwardIcon ml="3px" color="contrast" />
