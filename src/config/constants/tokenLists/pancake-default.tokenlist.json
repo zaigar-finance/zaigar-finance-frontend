@@ -95,6 +95,15 @@
 
     },
     {
+      "name": "Pepe Elon CEO",
+      "symbol": "PECEO",
+      "address": "0x4401E60E39F7d3F8D5021F113306AF1759a6c168",
+      "chainId": 56,
+      "decimals": 18,
+      "logoURI": "https://zaigar.finance/images/tokens/0x4401E60E39F7d3F8D5021F113306AF1759a6c168.png"
+
+    },
+    {
       "name": "Ysoy Chain",
       "symbol": "YSOY",
       "address": "0x57488Fcc3dC72Edb0a4c06a356c2c43C08BdfB42",
